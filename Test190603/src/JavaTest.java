@@ -8,7 +8,7 @@ public class JavaTest {
 	}
 
 	public void executeTest() {
-		Thing thing = new ReverseTriangle(); // Changed that each by test.
+		Thing thing = new EquilateralTriangle(); // Changed that each by test.
 		Scanner scanner = new Scanner(System.in);
 		int answer;
 		
