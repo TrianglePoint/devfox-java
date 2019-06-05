@@ -14,6 +14,12 @@ public class NumberBaseBall {
 	final int RESTART_GAME = -2;
 	final int SHOW_ANSWER = -3;
 	
+	/*
+	 * Used for menu and check the inserted numbers.
+	 */
+	final int MINIMUM_NUMBER = 0;
+	final int MAXIMUM_NUMBER = 9;
+	
 	public static void main(String[] args) {
 		NumberBaseBall numberBaseBall = new NumberBaseBall();
 		numberBaseBall.play();
@@ -55,6 +61,16 @@ public class NumberBaseBall {
 		 * Last game is 9th.
 		 */
 		final int PERIOD_END = 9;
+		
+		/*
+		 * Player win!
+		 */
+		final int THREE_STRIKE = 3;
+		
+		/*
+		 * Three out! Game end!
+		 */
+		final int THREE_OUT = 3;
 		
 		Scanner scanner = new Scanner(System.in);
 		
@@ -117,18 +133,28 @@ public class NumberBaseBall {
 			period++;
 			
 			/*
+			 * Player win!
+			 */
+			if(sboBean.getStrike() == THREE_STRIKE) {
+				System.out.println("You win!");
+				printAnswer(answerNumberBean.getNumbers());
+				
+				/*
+				 * Game reboot.
+				 */
+				period = bootGame(gameMaster, playerNumberBean, answerNumberBean, sboBean);
+			}
+			
+			/*
 			 * Game over.
 			 */
-			if(period > PERIOD_END) {
-				int[] answerNumbers = answerNumberBean.getNumbers();
+			if(period > PERIOD_END || sboBean.getOut() == THREE_OUT) {
+				System.out.println("Game Over");
+				printAnswer(answerNumberBean.getNumbers());
 				
-				System.out.print("Game Over\n"
-						+ "Answer : ");
-				for(int i = 0; i < answerNumbers.length; i++) {
-					System.out.print(answerNumbers[i] + " ");
-				}
-				System.out.println();
-				
+				/*
+				 * Game reboot.
+				 */
 				period = bootGame(gameMaster, playerNumberBean, answerNumberBean, sboBean);
 			}
 		}
@@ -174,16 +200,25 @@ public class NumberBaseBall {
 				+ "\nInsert the three numbers to do play, "
 				+ "or end : " + EXIT_GAME + ", "
 				+ "restart : " + RESTART_GAME + ", " 
-				+ "show answer : " + SHOW_ANSWER);
+				+ "show answer : " + SHOW_ANSWER 
+				+ "\nRange : " + MINIMUM_NUMBER + " ~ " + MAXIMUM_NUMBER);
+	}
+	
+	/*
+	 * Print the answer.
+	 */
+	private void printAnswer(int[] answerNumbers) {
+		System.out.print("Answer : ");
+		for(int i = 0; i < answerNumbers.length; i++) {
+			System.out.print(answerNumbers[i] + " ");
+		}
+		System.out.println();
 	}
 	
 	/*
 	 * Check the correct number, insert too.
 	 */
 	private boolean insertNumberAndCheck(int[] numbers, String[] answers) {
-		final int MINIMUM_NUMBER = 0;
-		final int MAXIMUM_NUMBER = 9;
-		
 		if(answers.length > ThreeNumberBean.getSize()) {
 			System.out.println("ERROR - Maximum command size is " + ThreeNumberBean.getSize());
 			return false;
