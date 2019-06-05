@@ -5,12 +5,13 @@ public class ThreeNumberBean {
 	
 	private int[] numbers;
 	
-	public static int getSize() {
-		return SIZE;
-	}
-
 	public ThreeNumberBean() {
 		numbers = new int[getSize()];
+	}
+	
+	
+	public static int getSize() {
+		return SIZE;
 	}
 
 	public int[] getNumbers() {
