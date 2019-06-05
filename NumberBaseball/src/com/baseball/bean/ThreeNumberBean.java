@@ -1,10 +1,16 @@
 package com.baseball.bean;
 
 public class ThreeNumberBean {
+	private final static int SIZE = 3;
+	
 	private int[] numbers;
 	
+	public static int getSize() {
+		return SIZE;
+	}
+
 	public ThreeNumberBean() {
-		numbers = new int[3];
+		numbers = new int[getSize()];
 	}
 
 	public int[] getNumbers() {
