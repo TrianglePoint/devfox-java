@@ -232,7 +232,7 @@ public class NumberBaseBall {
 						numbers[0] == SHOW_ANSWER)
 				){
 					/*
-					 * Program end on upper.
+					 * Process the menu on upper.
 					 */
 					return true;
 				}
