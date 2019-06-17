@@ -10,7 +10,6 @@
 	select * from tbl_board where bno > 0
 	]]>
 	</select>
-<<<<<<< HEAD
 	
 	<insert id="insert">
 	  insert into tbl_board (bno, title, content, writer)
@@ -42,6 +41,4 @@
 		updateDate = sysdate 
 		where bno = #{bno}
 	</update>
-=======
->>>>>>> branch 'master' of https://github.com/TrianglePoint/devfox-java.git
 </mapper>
