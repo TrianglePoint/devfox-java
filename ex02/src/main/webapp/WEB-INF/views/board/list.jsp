@@ -13,7 +13,11 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Board List Page</h6>
+              <span class="m-0 font-weight-bold text-primary">Board List Page</span>
+              <button id="regBtn" type="button" class="btn btn-xs pull-right"
+              style="float:right;">
+                Register New Board
+              </button>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -41,10 +45,66 @@
                   </c:forEach>
                   </tbody>
                 </table>
+
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+                 aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                      <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                      <button type="button" class="close" data-dismiss="modal" 
+                         aria-hidden="true">&times;</button>
+                      </div>
+                      <div class="modal-body">처리 끝!</div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                         data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">
+                          Save changes
+                        </button>
+                      </div>
+                    </div>
+                    <!-- /.modal-content -->
+                  </div>
+                  <!-- /.modal-dialog -->
+                </div>
+                <!-- /.modal -->
+                
               </div>
             </div>
           </div>
-
         </div>
         <!-- /.container-fluid -->
+        <script>
+          $(document).ready(function(){
+        	  var result = '<c:out value="${result}" />';
+        	  
+        	  if(shouldShowModal(result)){
+        		  showModal(result);
+        	  }
+        	  
+        	  function shouldShowModal(result){
+        		  if(result === ''){
+        			  return false;
+        		  }
+        		  
+        		  if(parseInt(result) > 0){
+        			  return true;
+        		  }
+        		  
+        		  return false;
+        	  }
+        	  
+        	  function showModal(result){
+        		  $('.modal-body').html('게시글 ' + parseInt(result) + '번이 등록됨');
+          
+          	      $('#myModal').modal('show');
+        	  }
+        	  
+        	  $('#regBtn').on('click', function(){
+        		  self.location = '/board/register';
+        	  })
+          });
+        </script>
 <%@ include file="../includes/footer.jsp" %>
