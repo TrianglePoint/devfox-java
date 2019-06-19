@@ -14,8 +14,9 @@
           <div class="card shadow mb-4">
             <div class="card-header py-3">
               <span class="m-0 font-weight-bold text-primary">Board List Page</span>
-              <button id="regBtn" type="button" class="btn btn-xs pull-right"
-              style="float:right;">
+              
+              <!-- 'pull-right' is change to 'fa-pull-right' (all.min.css)-->
+              <button id="regBtn" type="button" class="btn btn-xs fa-pull-right">
                 Register New Board
               </button>
             </div>
@@ -35,7 +36,11 @@
                   <c:forEach items="${list}" var="board">
                   <tr>
                     <td><c:out value="${board.bno}" /></td>
-                    <td><c:out value="${board.title}" /></td>
+                    <td>
+                      <a href="/board/get?bno=<c:out value='${board.bno}'></c:out>">
+                        <c:out value="${board.title}" />
+                      </a>
+                    </td>
                     <td><c:out value="${board.writer}" /></td>
                     <td><fmt:formatDate pattern="yyyy-MM-dd" 
                     value="${board.regdate}" /></td>
@@ -79,27 +84,26 @@
         <script>
           $(document).ready(function(){
         	  var result = '<c:out value="${result}" />';
-        	  
+
         	  if(shouldShowModal(result)){
-        		  showModal(result);
+          	      $('#myModal').modal('show');
         	  }
         	  
+        	  history.replaceState({}, null, null);
+        	  
         	  function shouldShowModal(result){
-        		  if(result === ''){
+        		  if(result === '' || history.state){
         			  return false;
         		  }
         		  
         		  if(parseInt(result) > 0){
-        			  return true;
+        			  setModalHtml(result);
         		  }
-        		  
-        		  return false;
+        		  return true;
         	  }
         	  
-        	  function showModal(result){
+        	  function setModalHtml(result){
         		  $('.modal-body').html('게시글 ' + parseInt(result) + '번이 등록됨');
-          
-          	      $('#myModal').modal('show');
         	  }
         	  
         	  $('#regBtn').on('click', function(){

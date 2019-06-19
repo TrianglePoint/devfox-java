@@ -43,10 +43,9 @@ public class BoardController {
 	 * @RequestParam is no necessary
 	 * if equals the parameter name and variable name.
 	 */
-	@GetMapping("/get")
+	@GetMapping({"/get", "/modify"})
 	public void get(@RequestParam("bno") Long bno, Model model) {
 		model.addAttribute("board", service.get(bno));
-		
 	}
 	
 	@PostMapping("/modify")
