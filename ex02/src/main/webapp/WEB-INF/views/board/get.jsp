@@ -39,14 +39,32 @@
                  value='<c:out value="${board.writer}"></c:out>' readonly="readonly"/>
                </div>
                
-               <a data-oper="modify" class="btn btn-default" 
-               href="/board/modify?bno=<c:out value='${board.bno}'></c:out>">Modify</a>
-               <a data-oper="list" class="btn btn-info" 
-               href="/board/list">List</a>
+               <button data-oper="modify" class="btn btn-default">Modify</button>
+               <button data-oper="list" class="btn btn-info">list</button>
+               
+               <form id="operForm" action="/board/modify" method="get">
+                 <input type="hidden" id="bno" name="bno" value="<c:out value='${board.bno}' />" />
+               </form>
               
             </div>
           </div>
 
         </div>
         <!-- /.container-fluid -->
+        
+        <script>
+          $(document).ready(function(){
+        	  var operForm = $('#operForm');
+        	  
+        	  $('button[data-oper="modify"]').on('click', function(e){
+        		  operForm.attr('action', '/board/modify').submit();
+        	  });
+        	  
+        	  $('button[data-oper="list"]').on('click', function(e){
+        		  operForm.find('#bno').remove();
+        		  operForm.attr('action', '/board/list');
+        		  operForm.submit();
+        	  });
+          });
+        </script>
 <%@ include file="../includes/footer.jsp" %>
