@@ -35,10 +35,12 @@ public class BoardControllerTests {
 	
 	public void testList() throws Exception{
 		log.info(
-				mockMvc.perform(MockMvcRequestBuilders.get("/board/list"))
-				.andReturn()
-				.getModelAndView()
-				.getModelMap());
+				mockMvc.perform(MockMvcRequestBuilders.get("/board/list")
+				.param("pageNum", "2")
+				.param("amount", "10")
+				).andReturn()
+				 .getModelAndView()
+				 .getModelMap());
 	}
 	
 	public void testRegister() throws Exception{
@@ -71,7 +73,6 @@ public class BoardControllerTests {
 		log.info(resultPage);
 	}
 	
-	@Test
 	public void testRemove() throws Exception{
 		String resultPage = 
 				mockMvc.perform(MockMvcRequestBuilders.post("/board/remove")
