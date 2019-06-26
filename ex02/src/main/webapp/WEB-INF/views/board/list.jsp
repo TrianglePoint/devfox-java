@@ -37,7 +37,7 @@
                   <tr>
                     <td><c:out value="${board.bno}" /></td>
                     <td>
-                      <a href="/board/get?bno=<c:out value='${board.bno}'></c:out>">
+                      <a class="move" href="<c:out value='${board.bno}'></c:out>">
                         <c:out value="${board.title}" />
                       </a>
                     </td>
@@ -152,6 +152,19 @@
         		 
         		 actionForm.find('input[name="pageNum"]').val($(this).attr('href'));
         		 actionForm.submit();
+        	  });
+        	  
+        	  $('.move').on('click', function(e){
+        		  e.preventDefault();
+        		  
+        		  var input = $('<input />');
+        		  input.attr('type', 'hidden');
+        		  input.attr('name', 'bno');
+        		  input.attr('value', $(this).attr('href'));
+        		  
+        		  actionForm.append(input);
+        		  actionForm.attr('action', '/board/get');
+        		  actionForm.submit();
         	  });
           });
         </script>
