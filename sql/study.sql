@@ -16,3 +16,16 @@ from (
   where rownum <= 20
 )
 where rn >= 11;
+
+select *
+from
+  (
+    select /*+ INDEX_DESC (tbl_board pk_board) */
+      rownum rn, bno, title, content, writer, regdate, updatedate
+    from
+      tbl_board
+    where
+      (title like '%Test%' or content like '%Test%')
+      and rownum <= 20
+  )
+where rn > 10;
