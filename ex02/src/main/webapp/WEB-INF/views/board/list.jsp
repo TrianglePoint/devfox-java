@@ -55,19 +55,19 @@
                   <ul class="pagination">
                     <c:if test="${pageMaker.prev}">
                       <li class="paginate_button previous page-item">
-                        <a href="#" class="page-link">Previous</a>
+                        <a href="<c:out value='${pageMaker.startPage-1}'></c:out>" class="page-link">Previous</a>
                       </li>
                     </c:if>
                     
                     <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
                       <li class="paginate_button page-item">
-                        <a href="#" class="page-link">${num}</a>
+                        <a href="<c:out value='${num}'></c:out>" class="page-link">${num}</a>
                       </li>
                     </c:forEach>
                     
                     <c:if test="${pageMaker.next}">
                       <li class="paginate_button next page-item">
-                        <a href="#" class="page-link">Next</a>
+                        <a href="<c:out value='${pageMaker.endPage+1}'></c:out>" class="page-link">Next</a>
                       </li>
                     </c:if>
                   </ul>
@@ -106,6 +106,14 @@
           </div>
         </div>
         <!-- /.container-fluid -->
+        
+        <form id="actionForm" action="/board/list" method="get">
+          <input type="hidden" name="pageNum" 
+          value="<c:out value='${pageMaker.cri.pageNum}'></c:out>" />
+          <input type="hidden" name="amount" 
+          value="<c:out value='${pageMaker.cri.amount}'></c:out>" />
+        </form>
+        
         <script>
           $(document).ready(function(){
         	  var result = '<c:out value="${result}" />';
@@ -133,7 +141,18 @@
         	  
         	  $('#regBtn').on('click', function(){
         		  self.location = '/board/register';
-        	  })
+        	  });
+        	  
+        	  var actionForm = $('#actionForm');
+        	  
+        	  $('.paginate_button a').on('click', function(e){
+        		 e.preventDefault();
+        		 
+        		 console.log('click');
+        		 
+        		 actionForm.find('input[name="pageNum"]').val($(this).attr('href'));
+        		 actionForm.submit();
+        	  });
           });
         </script>
 <%@ include file="../includes/footer.jsp" %>
