@@ -50,6 +50,29 @@
                   </c:forEach>
                   </tbody>
                 </table>
+                
+                <div class="fa-pull-right">
+                  <ul class="pagination">
+                    <c:if test="${pageMaker.prev}">
+                      <li class="paginate_button previous page-item">
+                        <a href="#" class="page-link">Previous</a>
+                      </li>
+                    </c:if>
+                    
+                    <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                      <li class="paginate_button page-item">
+                        <a href="#" class="page-link">${num}</a>
+                      </li>
+                    </c:forEach>
+                    
+                    <c:if test="${pageMaker.next}">
+                      <li class="paginate_button next page-item">
+                        <a href="#" class="page-link">Next</a>
+                      </li>
+                    </c:if>
+                  </ul>
+                  <!-- End pagination -->
+                </div>
 
                 <!-- Modal -->
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
@@ -77,7 +100,9 @@
                 <!-- /.modal -->
                 
               </div>
+              <!-- /.table-responsive -->
             </div>
+            <!-- /.card-body -->
           </div>
         </div>
         <!-- /.container-fluid -->
