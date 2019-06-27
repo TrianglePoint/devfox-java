@@ -21,6 +21,10 @@
                  value="<c:out value='${cri.pageNum}'></c:out>" />
                  <input type="hidden" name="amount" 
                  value="<c:out value='${cri.amount}'></c:out>" />
+                 <input type="hidden" name="type"
+                 value="<c:out value='${cri.type}'></c:out>" />
+          		 <input type="hidden" name="keyword"
+                 value="<c:out value='${cri.keyword}'></c:out>" />
                  
 	             <div class="form-group">
 	                <label>Bno</label> 
@@ -95,10 +99,14 @@
 					
 					var pageNumTag = $('input[name="pageNum"]').clone();
 					var amountTag = $('input[name="amount"]').clone();
+					var typeTag = $('input[name="type"]').clone();
+					var keywordTag = $('input[name="keyword"]').clone();
 					
 					formObj.empty();
 					formObj.append(pageNumTag);
 					formObj.append(amountTag);
+					formObj.append(typeTag);
+					formObj.append(keywordTag);
         		}
         		formObj.submit();
         		
