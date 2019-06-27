@@ -51,6 +51,22 @@
                   </tbody>
                 </table>
                 
+                <form id="searchForm" action="/board/list" method="get">
+                  <select name="type">
+                    <option value="">---</option>
+                    <option value="T">제목</option>
+                    <option value="C">내용</option>
+                    <option value="W">작성자</option>
+                    <option value="TC">제목 + 내용</option>
+                    <option value="TW">제목 + 작성자</option>
+                    <option value="TWC">제목 + 작성자 + 내용</option>
+                  </select>
+                  <input type="text" name="keyword" />
+                  <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}" />
+                  <input type="hidden" name="amount" value="${pageMaker.cri.amount}" />
+                  <button class="btn btn-default">Search</button>
+                </form>
+                
                 <div class="fa-pull-right">
                   <ul class="pagination">
                     <c:if test="${pageMaker.prev}">
@@ -60,7 +76,8 @@
                     </c:if>
                     
                     <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-                      <li class="paginate_button page-item">
+                      <li class="paginate_button page-item 
+                      ${pageMaker.cri.pageNum == num ? 'active' : ''}">
                         <a href="<c:out value='${num}'></c:out>" class="page-link">${num}</a>
                       </li>
                     </c:forEach>
@@ -165,6 +182,25 @@
         		  actionForm.append(input);
         		  actionForm.attr('action', '/board/get');
         		  actionForm.submit();
+        	  });
+        	  
+        	  var searchForm = $('#searchForm');
+        	  
+        	  $('#searchForm button').on('click', function(e){
+        		  e.preventDefault();
+        		  
+        		  if(!searchForm.find('option:selected').val()){
+        			  alert('검색종류를 선택하세요');
+        			  return false;
+        		  }
+        		  
+        		  if(!searchForm.find('input[name="keyword"]').val()){
+        			  alert('키워드를 입력하세요');
+        			  return false;
+        		  }
+        		  
+        		  searchForm.find('input[name="pageNum"]').val("1");
+        		  searchForm.submit();
         	  });
           });
         </script>
